@@ -45,7 +45,7 @@ export default {
     { src: '~/plugins/vue-whatsapp', ssr: false },
   ],
 
-  buildDir: 'nuxt-dist',
+  buildDir: 'dist',
 
   axios: {
     https: true,
