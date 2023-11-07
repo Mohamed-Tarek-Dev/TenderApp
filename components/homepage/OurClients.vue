@@ -10,7 +10,7 @@
         <client-only>
           <VueSlickCarousel v-bind="settings">
             <div class="img_wrapper" v-for="(item, idx) in items" :key="idx">
-              <img :src="item.avatar" alt="client" />
+              <img :src="item.avatar" alt="client" draggable="false" />
             </div>
           </VueSlickCarousel>
         </client-only>
@@ -109,9 +109,14 @@ export default {
         width: 70%;
         height: 100px;
         margin-inline: auto;
+        user-select: none;
       }
     }
   }
+}
+.slick-slide {
+  cursor: grab;
+  user-select: none;
 }
 .slick-list {
   direction: ltr !important;
