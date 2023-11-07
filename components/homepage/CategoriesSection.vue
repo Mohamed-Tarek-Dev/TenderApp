@@ -65,6 +65,7 @@ export default {
       display: block;
       margin-inline: auto;
       margin-bottom: 15px;
+      object-fit: cover;
     }
     .title {
       text-align: center;
