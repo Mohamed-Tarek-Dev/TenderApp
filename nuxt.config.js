@@ -45,7 +45,7 @@ export default {
     { src: '~/plugins/vue-whatsapp', ssr: false },
   ],
 
-  buildDir: 'dist',
+  // buildDir: 'dist',
 
   axios: {
     https: true,
@@ -104,6 +104,19 @@ export default {
     babel: {
       compact: true,
     },
-    postcss: false,
+    // Ensure postcss is set to an object even if not in use, to avoid build issues
+    postcss: {
+      // Include autoprefixer as an example, you can configure as needed
+      plugins: {
+        autoprefixer: {},
+      },
+    },
+    // Add extend function to check webpack config
+    extend(config, ctx) {
+      // Further configuration adjustments can be made here if necessary
+    },
   },
+  // Added a target property to define deployment type
+  // Use 'server' for SSR or 'static' for static generation
+  target: 'server', // or 'static' if you are generating a static site
 }
