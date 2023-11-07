@@ -6,7 +6,7 @@
       </div>
       <!-- end::title_box -->
 
-      <div class="slider_wrapper">
+      <div class="slider_wrapper" dir="ltr">
         <client-only>
           <VueSlickCarousel v-bind="settings">
             <div class="img_wrapper" v-for="(item, idx) in items" :key="idx">
@@ -41,9 +41,10 @@ export default {
           infinite: false,
           autoplay: true,
           speed: 500,
-          slidesToShow: 6,
+          slidesToShow: 8,
           slidesToScroll: 1,
           touchThreshold: 8,
+          rtl: false,
           responsive: [
             {
               breakpoint: 1024,
@@ -77,7 +78,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .clients_wrapper {
   padding-block: 60px;
   position: relative;
@@ -97,6 +98,8 @@ export default {
     }
   }
   .slider_wrapper {
+    direction: ltr !important;
+    text-align: left !important;
     .img_wrapper {
       border: 1px solid #eee;
       border-radius: 5px;
@@ -109,5 +112,12 @@ export default {
       }
     }
   }
+}
+.slick-list {
+  direction: ltr !important;
+  text-align: left !important;
+}
+.slick-dots {
+  direction: ltr !important;
 }
 </style>
