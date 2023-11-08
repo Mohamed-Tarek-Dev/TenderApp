@@ -67,6 +67,12 @@ export default {
       margin-bottom: 15px;
       object-fit: cover;
     }
+    &:hover {
+      img {
+        transform: scale(1.1);
+        transition: all 0.3s ease-in-out;
+      }
+    }
     .title {
       text-align: center;
       font-size: 18px;

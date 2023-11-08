@@ -21,7 +21,7 @@
             <client-only v-if="dropdowns">
               <multiselect
                 :options="categories"
-                show-labels="false"
+                :show-labels="false"
                 v-model="form.category"
                 :placeholder="`الكل`"
                 track-by="value"
@@ -31,7 +31,7 @@
               </multiselect>
               <multiselect
                 :options="countries"
-                show-labels="false"
+                :show-labels="false"
                 v-model="form.country"
                 :placeholder="`الدولة`"
                 track-by="value"

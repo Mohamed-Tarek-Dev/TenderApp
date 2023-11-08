@@ -73,6 +73,7 @@
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
+    direction: ltr !important;
     input {
       width: calc(100% / 4 - 10px);
       text-align: center;

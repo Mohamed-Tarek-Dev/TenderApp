@@ -29,6 +29,9 @@ export default {
           this.$refs.codeRef[index + 1].focus()
         }
       }
+      if (Array.from(this.activationCells).length == 4) {
+        this.submitForm()
+      }
     },
     async submitForm() {
       this.disabled = true
@@ -41,7 +44,7 @@ export default {
           .post('/verify', this.form)
           .then((res) => {
             this.TriggerNotify('success', 'تم تأكيد رقم الهاتف بنجاح !')
-            this.$router.replace('/auth/login')
+            this.$router.replace('/')
           })
           .catch((err) => {
             const req_error = {

@@ -30,6 +30,11 @@ export default {
     ServicesSection,
     OurClients,
   },
+  data() {
+    return {
+      titles: [],
+    }
+  },
   async asyncData(context) {
     const homedata = await context.$axios.$get('/home').catch((err) => {})
     const tenders = await context.$axios.$get('/tenders').catch((err) => {})
@@ -37,6 +42,7 @@ export default {
   },
   methods: {
     async handleFilter(form) {
+      this.titles = []
       await this.$axios
         .$get('/tenders', {
           params: {
@@ -46,6 +52,7 @@ export default {
           },
         })
         .then((res) => {
+          this.titles = res.data.map((item) => item.title)
           this.$store.commit('tenders/SET_TENDERS_DATA', res.data)
         })
         .catch((err) => {
@@ -56,7 +63,25 @@ export default {
           this.error_handler(req_error)
           this.TriggerNotify('error', this.notify.message)
         })
+      return this.titles
     },
   },
 }
+
+// async function fetchData() {
+//   try {
+//     const response = await fetch(
+//       'https://supply-angel.appaths.com/api/website/tenders'
+//     )
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`)
+//     }
+//     const data = await response.json()
+//     console.log(data)
+//   } catch (error) {
+//     console.error('Error fetching data:', error)
+//   }
+// }
+
+// fetchData()
 </script>
