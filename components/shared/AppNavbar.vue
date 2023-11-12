@@ -2,11 +2,11 @@
   <header>
     <nav class="app_navbar">
       <div class="container-fluid">
-        <div class="row">
+        <div class="row flex-wrapper">
           <div class="col-lg-2">
             <div class="logo_wrapper">
               <nuxt-link to="/">
-                <span>Logo</span>
+                <img src="@/assets/images/logo.svg" alt="Logo" />
               </nuxt-link>
             </div>
           </div>
@@ -143,3 +143,12 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.flex-wrapper {
+  align-items: center;
+}
+.logo_wrapper {
+  width: 100px;
+}
+</style>

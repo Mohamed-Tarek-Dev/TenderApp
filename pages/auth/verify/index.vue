@@ -37,7 +37,7 @@
                 <button
                   type="submit"
                   class="btn btn-default"
-                  :disabled="disabled"
+                  :class="{ 'btn-active': disabled }"
                 >
                   <b-spinner v-if="disabled" variant="light" small></b-spinner>
                   <span> تحقق</span>
@@ -105,15 +105,32 @@
       }
     }
   }
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
   .btn-default {
     margin-top: 25px;
-    width: 50%;
+    width: 100%;
     display: block;
     margin-inline: auto;
-    background-color: $base-color;
-    color: #fff;
     border-radius: 25px;
-    padding: 15px;
+    padding: 15px 50px;
+    background-color: #a0b9d9;
+    color: #d6e2f0;
+    cursor: not-allowed;
+    opacity: 0.5;
+    pointer-events: none;
+
+    &.btn-active {
+      background-color: $base-color;
+      color: #fff;
+      cursor: pointer;
+      opacity: 1;
+      pointer-events: auto;
+    }
   }
 }
 </style>

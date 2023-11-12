@@ -5,7 +5,7 @@
         <h2>القطاعات</h2>
       </div>
       <!-- end::title_box -->
-      <div class="row">
+      <div class="row flex-div">
         <div
           class="col-lg-2 col-md-3 col-12"
           v-for="(item, idx) in items"
@@ -16,11 +16,11 @@
             <p class="title">{{ item.name }}</p>
           </div>
         </div>
+        <div class="button_wrapper col-12">
+          <nuxt-link :to="{ name: 'categories' }">عرض المزيد</nuxt-link>
+        </div>
       </div>
       <!-- end::row -->
-      <div class="button_wrapper">
-        <nuxt-link :to="{ name: 'categories' }">عرض المزيد</nuxt-link>
-      </div>
     </div>
   </section>
 </template>
@@ -56,16 +56,20 @@ export default {
       text-align: center;
     }
   }
+  .flex-div {
+    gap: 4rem 0;
+  }
   .card_wrapper {
-    margin-bottom: 35px;
+    // margin-bottom: 80px;
     cursor: pointer;
     img {
-      width: 200px;
-      height: 170px;
+      width: 170px;
+      height: 150px;
       display: block;
       margin-inline: auto;
       margin-bottom: 15px;
       object-fit: cover;
+      border-radius: 10px;
     }
     &:hover {
       img {
@@ -83,9 +87,12 @@ export default {
     display: flex;
     justify-content: flex-end;
     a {
-      font-weight: 500;
+      font-weight: 700;
       color: $base-color;
       text-decoration: underline !important;
+    }
+    @media (screen-width: 768px) {
+      justify-content: center;
     }
   }
 }

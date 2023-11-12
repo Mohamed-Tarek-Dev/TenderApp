@@ -21,9 +21,8 @@
             <client-only v-if="dropdowns">
               <multiselect
                 :options="categories"
-                :show-labels="false"
                 v-model="form.category"
-                :placeholder="`الكل`"
+                :placeholder="`القطاعات`"
                 track-by="value"
                 label="name"
                 id="category"
@@ -31,7 +30,6 @@
               </multiselect>
               <multiselect
                 :options="countries"
-                :show-labels="false"
                 v-model="form.country"
                 :placeholder="`الدولة`"
                 track-by="value"
@@ -116,13 +114,6 @@ export default {
     position: relative;
     .input-group {
       position: relative;
-      @media (max-width: 767px) {
-        flex-wrap: wrap;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-      }
-
       .icon {
         position: absolute;
         top: 50%;
@@ -139,18 +130,12 @@ export default {
         border: none;
         padding-inline-start: 40px;
         box-shadow: none;
-        border-radius: 25px;
-        width: 98%;
-        @media (max-width: 767px) {
-          width: 100%;
-        }
+        border-radius: 0;
       }
       .wrapper {
         width: 50%;
         display: flex;
         align-items: center;
-        gap: 10px;
-        position: relative;
         &.full-width {
           width: 85%;
         }
@@ -163,6 +148,11 @@ export default {
         .multiselect {
           width: calc(100% / 3);
           min-height: 60px;
+          &:first-child {
+            .multiselect__tags {
+              border-inline-end: none;
+            }
+          }
           .multiselect__select {
             top: 16px;
           }
@@ -170,7 +160,7 @@ export default {
             display: flex;
             align-items: center;
             min-height: 60px;
-            border-radius: 25px;
+            border-radius: 0;
             border: 2px solid #648dc4;
           }
           .multiselect__placeholder {
@@ -181,14 +171,11 @@ export default {
           width: calc(100% / 3);
           background-color: #648dc4;
           color: #fff;
-          border-radius: 25px;
+          border-radius: 0;
           height: 60px;
         }
       }
     }
   }
-}
-.multiselect--above .multiselect__content-wrapper {
-  bottom: unset !important;
 }
 </style>
