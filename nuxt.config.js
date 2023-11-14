@@ -43,6 +43,7 @@ export default {
     { src: '~/plugins/vue-multiselect', ssr: false },
     { src: '~/plugins/vue-toast', mode: 'client' },
     { src: '~/plugins/vue-whatsapp', ssr: false },
+    { src: '~/plugins/vue-social-sharing', ssr: false },
   ],
 
   buildDir: 'dist',

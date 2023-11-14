@@ -68,20 +68,20 @@ export default {
   },
 }
 
-// async function fetchData() {
-//   try {
-//     const response = await fetch(
-//       'https://supply-angel.appaths.com/api/website/tenders'
-//     )
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`)
-//     }
-//     const data = await response.json()
-//     console.log(data)
-//   } catch (error) {
-//     console.error('Error fetching data:', error)
-//   }
-// }
+async function fetchData() {
+  try {
+    const response = await fetch(
+      'https://supply-angel.appaths.com/api/website/tenders'
+    )
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    const data = await response.json()
+    console.log(data)
+  } catch (error) {
+    console.error('Error fetching data:', error)
+  }
+}
 
-// fetchData()
+fetchData()
 </script>
