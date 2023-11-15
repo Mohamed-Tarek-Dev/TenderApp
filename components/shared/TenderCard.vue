@@ -248,7 +248,7 @@
     </b-modal>
     <!-- end:: apply_modal -->
 
-    <ShareModal :item="item"></ShareModal>
+    <ShareModal v-if="item" :item="item"></ShareModal>
   </div>
 </template>
 
@@ -271,6 +271,57 @@ export default {
       images: [],
       files: [],
       disabled: false,
+    }
+  },
+  head() {
+    // 'head' must be a function to access 'this'
+    const item = this.item || {} // Fallback if item is not provided
+    const hasImages = item.tender_images && item.tender_images.length > 0
+    return {
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: item.desc || '',
+        },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: item.desc || '',
+        },
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: item.title || '',
+        },
+        {
+          hid: 'og:image',
+          property: 'og:image',
+          content: hasImages ? item.tender_images[0].media : '',
+        },
+        {
+          hid: 'twitter:card',
+          name: 'twitter:card',
+          content: 'summary_large_image', // Use 'summary' for a smaller image card
+        },
+        {
+          hid: 'twitter:title',
+          name: 'twitter:title',
+          content: item.title || 'Default Title',
+        },
+        {
+          hid: 'twitter:description',
+          name: 'twitter:description',
+          content: item.desc || 'Default description',
+        },
+        {
+          hid: 'twitter:image',
+          name: 'twitter:image',
+          content: hasImages
+            ? item.tender_images[0].media
+            : 'Default image URL',
+        },
+      ],
     }
   },
   computed: {
