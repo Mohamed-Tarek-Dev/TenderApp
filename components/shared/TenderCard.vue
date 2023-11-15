@@ -81,7 +81,7 @@
         <div class="col-lg-3">
           <div class="options_wrapper">
             <div class="item">
-              <a href="javascript:;">
+              <a href="javascript:;" @click="showModal = !showModal">
                 <svg class="icon">
                   <use xlink:href="~/static/sprite.svg#share"></use>
                 </svg>
@@ -118,6 +118,11 @@
         <!-- end::col -->
       </div>
       <!-- end::row -->
+      <transition name="fade">
+        <client-only v-if="showModal">
+          <ShareModal :item="item" />
+        </client-only>
+      </transition>
     </div>
 
     <!-- start:: apply_modal -->
@@ -247,15 +252,11 @@
       </div>
     </b-modal>
     <!-- end:: apply_modal -->
-
-    <ShareModal :item="item"></ShareModal>
   </div>
 </template>
 
 <script>
 import ShareModal from '~/components/modals/ShareModal.vue'
-
-// document.getElementsByTagName('head')[0].setAttribute('dir', 'rtl')
 
 export default {
   name: 'TenderCard',
@@ -263,6 +264,7 @@ export default {
   components: { ShareModal },
   data() {
     return {
+      showModal: false,
       form: {
         desc: null,
         images: [],
@@ -418,6 +420,7 @@ export default {
   margin-bottom: 20px;
   position: relative;
   padding-inline-end: 80px;
+  position: relative;
   cursor: pointer;
   .ribbon {
     width: 120px;
@@ -555,5 +558,14 @@ export default {
       }
     }
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

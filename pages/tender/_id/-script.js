@@ -56,6 +56,16 @@ export default {
           property: 'og:image',
           content: this.item.tender_images[0]?.media || 'default-image-url',
         },
+        // {
+        //   hid: 'og:image:height',
+        //   property: 'og:image:height',
+        //   content: '200',
+        // },
+        // {
+        //   hid: 'og:image:width',
+        //   property: 'og:image:width',
+        //   content: '200',
+        // },
         // Add more meta tags as needed
       ],
     }
