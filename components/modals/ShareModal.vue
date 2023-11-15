@@ -39,7 +39,7 @@ export default {
         hid: 'og:image',
         property: 'og:image',
         content:
-          'https://i.pinimg.com/236x/45/b6/7a/45b67a28f2d4dc0a328fc4b36d55a604.jpg',
+          'https://images.unsplash.com/photo-1699704674521-54b3252e52e9?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       },
       // Twitter Card data
       {
@@ -56,7 +56,7 @@ export default {
         hid: 'twitter:image',
         name: 'twitter:image',
         content:
-          'https://i.pinimg.com/236x/45/b6/7a/45b67a28f2d4dc0a328fc4b36d55a604.jpg',
+          'https://images.unsplash.com/photo-1699704674521-54b3252e52e9?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       },
     ],
   },
