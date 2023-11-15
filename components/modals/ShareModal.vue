@@ -5,8 +5,9 @@
       url="https://tender-app-ten.vercel.app/tender/4"
       :title="this.item.title"
       :description="this.item.desc"
-      media:="https://res.cloudinary.com/vuejsprojects/image/upload/c_scale,f_auto,q_auto,w_auto/v1/post/vue-social-sharing.jpg"
       hashtags="مناقصة"
+      quote="Blah blah blah"
+      media="https://i.pinimg.com/564x/a1/34/32/a134320ae7a4b7c793a807d3207412bb.jpg"
     >
       <button>Share on Facebook</button>
     </ShareNetwork>

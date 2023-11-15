@@ -273,49 +273,49 @@ export default {
       disabled: false,
     }
   },
-  // head: {
-  //   meta: [
-  //     {
-  //       hid: 'description',
-  //       name: 'description',
-  //       content: 'Your page description goes here',
-  //     },
-  //     // Open Graph data
-  //     {
-  //       hid: 'og:title',
-  //       property: 'og:title',
-  //       content: 'Page Title',
-  //     },
-  //     {
-  //       hid: 'og:description',
-  //       property: 'og:description',
-  //       content: 'Your page description goes here',
-  //     },
-  //     {
-  //       hid: 'og:image',
-  //       property: 'og:image',
-  //       content:
-  //         'https://res.cloudinary.com/vuejsprojects/image/upload/c_scale,f_auto,q_auto,w_auto/v1/post/vue-social-sharing.jpg',
-  //     },
-  //     // Twitter Card data
-  //     {
-  //       hid: 'twitter:title',
-  //       name: 'twitter:title',
-  //       content: 'Page Title',
-  //     },
-  //     {
-  //       hid: 'twitter:description',
-  //       name: 'twitter:description',
-  //       content: 'Your page description goes here',
-  //     },
-  //     {
-  //       hid: 'twitter:image',
-  //       name: 'twitter:image',
-  //       content:
-  //         'https://res.cloudinary.com/vuejsprojects/image/upload/c_scale,f_auto,q_auto,w_auto/v1/post/vue-social-sharing.jpgg',
-  //     },
-  //   ],
-  // },
+  head: {
+    meta: [
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'Your page description goes here',
+      },
+      // Open Graph data
+      {
+        hid: 'og:title',
+        property: 'og:title',
+        content: 'Page Title',
+      },
+      {
+        hid: 'og:description',
+        property: 'og:description',
+        content: 'Your page description goes here',
+      },
+      {
+        hid: 'og:image',
+        property: 'og:image',
+        content:
+          'https://i.pinimg.com/564x/22/af/3c/22af3ce9b7d8e09679cffcb151176210.jpg',
+      },
+      // Twitter Card data
+      {
+        hid: 'twitter:title',
+        name: 'twitter:title',
+        content: 'Page Title',
+      },
+      {
+        hid: 'twitter:description',
+        name: 'twitter:description',
+        content: 'Your page description goes here',
+      },
+      {
+        hid: 'twitter:image',
+        name: 'twitter:image',
+        content:
+          'https://i.pinimg.com/564x/22/af/3c/22af3ce9b7d8e09679cffcb151176210.jpg',
+      },
+    ],
+  },
   computed: {
     is_loggedin() {
       return this.$cookies.get('userToken')
