@@ -35,6 +35,7 @@ export default {
       titles: [],
     }
   },
+
   async asyncData(context) {
     const homedata = await context.$axios.$get('/home').catch((err) => {})
     const tenders = await context.$axios.$get('/tenders').catch((err) => {})

@@ -120,7 +120,7 @@ export default {
   // Added a target property to define deployment type
   // Use 'server' for SSR or 'static' for static generation
   target: 'static', // or 'static' if you are generating a static site
-  ssr: false,
+  // ssr: false,
   generate: {
     fallback: true,
   },

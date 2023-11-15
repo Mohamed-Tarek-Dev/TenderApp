@@ -254,55 +254,13 @@
 
 <script>
 import ShareModal from '~/components/modals/ShareModal.vue'
+
+// document.getElementsByTagName('head')[0].setAttribute('dir', 'rtl')
+
 export default {
   name: 'TenderCard',
   props: ['item'],
   components: { ShareModal },
-  head() {
-    return {
-      title: this.item.title,
-      meta: [
-        // Meta description tag
-        {
-          hid: 'description',
-          name: 'description',
-          content: this.item.desc,
-        },
-        // Open Graph data
-        {
-          hid: 'og:title',
-          property: 'og:title',
-          content: this.item.title,
-        },
-        {
-          hid: 'og:description',
-          property: 'og:description',
-          content: this.item.desc,
-        },
-        {
-          hid: 'og:image',
-          property: 'og:image',
-          content: `${this.item.tender_images[0].media}`,
-        },
-        // Twitter Card data
-        {
-          hid: 'twitter:title',
-          name: 'twitter:title',
-          content: this.item.title,
-        },
-        {
-          hid: 'twitter:description',
-          name: 'twitter:description',
-          content: this.item.desc,
-        },
-        {
-          hid: 'twitter:image',
-          name: 'twitter:image',
-          content: `${this.item.tender_images[0].media}`,
-        },
-      ],
-    }
-  },
   data() {
     return {
       form: {
@@ -315,6 +273,49 @@ export default {
       disabled: false,
     }
   },
+  // head: {
+  //   meta: [
+  //     {
+  //       hid: 'description',
+  //       name: 'description',
+  //       content: 'Your page description goes here',
+  //     },
+  //     // Open Graph data
+  //     {
+  //       hid: 'og:title',
+  //       property: 'og:title',
+  //       content: 'Page Title',
+  //     },
+  //     {
+  //       hid: 'og:description',
+  //       property: 'og:description',
+  //       content: 'Your page description goes here',
+  //     },
+  //     {
+  //       hid: 'og:image',
+  //       property: 'og:image',
+  //       content:
+  //         'https://res.cloudinary.com/vuejsprojects/image/upload/c_scale,f_auto,q_auto,w_auto/v1/post/vue-social-sharing.jpg',
+  //     },
+  //     // Twitter Card data
+  //     {
+  //       hid: 'twitter:title',
+  //       name: 'twitter:title',
+  //       content: 'Page Title',
+  //     },
+  //     {
+  //       hid: 'twitter:description',
+  //       name: 'twitter:description',
+  //       content: 'Your page description goes here',
+  //     },
+  //     {
+  //       hid: 'twitter:image',
+  //       name: 'twitter:image',
+  //       content:
+  //         'https://res.cloudinary.com/vuejsprojects/image/upload/c_scale,f_auto,q_auto,w_auto/v1/post/vue-social-sharing.jpgg',
+  //     },
+  //   ],
+  // },
   computed: {
     is_loggedin() {
       return this.$cookies.get('userToken')
