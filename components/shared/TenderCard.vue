@@ -36,7 +36,14 @@
             </h4>
             <div class="flex_wrapper" @click="handleRoute">
               <div class="item">
-                <p class="desc">{{ item.desc }}</p>
+                <p class="desc">
+                  {{ truncateDesc(item.desc, 100) }}
+                  <nuxt-link
+                    :to="{ name: 'tender-id', params: { id: item.id } }"
+                    v-if="item.desc.length > 100"
+                    >المزيد</nuxt-link
+                  >
+                </p>
               </div>
               <!-- end::item -->
               <div class="item">
@@ -105,12 +112,7 @@
             </div>
             <!-- end::item -->
             <div class="item">
-              <nuxt-link
-                :to="{ name: 'tender-id', params: { id: item.id } }"
-                class="btn btn-default"
-              >
-                تفاصيل الصفقة
-              </nuxt-link>
+              <p @click="handleRoute" class="btn btn-default">تفاصيل الصفقة</p>
             </div>
             <!-- end::item -->
           </div>
@@ -118,11 +120,6 @@
         <!-- end::col -->
       </div>
       <!-- end::row -->
-      <transition name="fade">
-        <client-only v-if="showModal">
-          <ShareModal :item="item" />
-        </client-only>
-      </transition>
     </div>
 
     <!-- start:: apply_modal -->
@@ -252,6 +249,12 @@
       </div>
     </b-modal>
     <!-- end:: apply_modal -->
+
+    <transition name="fade">
+      <client-only v-if="showModal">
+        <ShareModal :item="item" @close-modal="showModal = false" />
+      </client-only>
+    </transition>
   </div>
 </template>
 
@@ -407,6 +410,13 @@ export default {
     },
     openModal() {
       this.$refs['apply'].show()
+    },
+
+    truncateDesc(text, maxLength) {
+      if (text && text.length > maxLength) {
+        return text.substring(0, maxLength) + '...'
+      }
+      return text
     },
   },
 }

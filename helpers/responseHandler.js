@@ -1,6 +1,6 @@
 const responseHandler = (error, { commit }, type) => {
   console.log(error)
-  let errorCode = error.status
+  let errorCode = error?.status
   if (errorCode == 200 || errorCode == 201) {
     commit('SET_ERROR_MSG', {
       type: 'success',

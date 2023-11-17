@@ -47,11 +47,19 @@
                             <b-form-textarea
                               type="text"
                               v-model="form.desc"
+                              :maxlength="maxChars"
                               rows="4"
                               :class="{ invalid: errors[0] }"
                               placeholder="يرجى ادخال التفاصيل"
                             ></b-form-textarea>
                           </b-input-group>
+                          <div class="character-counter">
+                            {{ form.desc ? form.desc.length : 0 }} /
+                            {{ maxChars }}
+                          </div>
+                          <p v-if="isOverLimit" class="overlimit">
+                            اقصى عدد حروف هو {{ maxChars }}
+                          </p>
                           <span v-if="errors[0]" class="validation-error">
                             {{ errors[0] }}
                           </span>
@@ -126,7 +134,7 @@
                           </label>
                           <b-input-group>
                             <b-form-input
-                              type="text"
+                              type="number"
                               v-model="form.tender_specifications_value"
                               :class="{ invalid: errors[0] }"
                               placeholder="يرجى ادخال قيمة كراسة الشروط"
@@ -155,7 +163,7 @@
                           </label>
                           <b-input-group>
                             <b-form-input
-                              type="text"
+                              type="number"
                               v-model="form.insurance_value"
                               :class="{ invalid: errors[0] }"
                               placeholder="يرجى ادخال قيمة التأمين"
@@ -414,5 +422,8 @@
       }
     }
   }
+}
+.overlimit {
+  color: crimson;
 }
 </style>

@@ -1,9 +1,10 @@
 // importing components
 import Breadcrumb from '~/components/shared/Breadcrumb.vue'
+import ImageModal from '~/components/modals/ImageModal.vue'
 
 export default {
   name: 'TenderDetails',
-  components: { Breadcrumb },
+  components: { Breadcrumb, ImageModal },
   async asyncData(context) {
     const tender = await context.$axios.$get(`/tenders/${context.params.id}`)
 
@@ -11,6 +12,7 @@ export default {
   },
   data() {
     return {
+      closeImageModal: false,
       breadcrumb: [
         { name: 'tenders-list', title: 'المناقصات' },
         { name: '', title: 'تفاصيل الصفقة' },
@@ -188,6 +190,19 @@ export default {
         })
 
       this.disabled = false
+    },
+    isPdf(url) {
+      return url.match(/\.pdf$/i)
+    },
+
+    downloadDocument(url) {
+      // Logic to download the document
+      const link = document.createElement('a')
+      link.href = url
+      link.download = url.split('/').pop()
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
     },
   },
 }

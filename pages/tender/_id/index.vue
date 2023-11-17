@@ -189,6 +189,50 @@
         </div>
         <!-- end::body_wrapper -->
 
+        <div class="other__files">
+          <h3>ملفات اخرى</h3>
+          <div class="other__files--container">
+            <div
+              v-for="(file, idx) in item.tender_images"
+              :key="file.id"
+              class="other__files--card"
+            >
+              <div class="other__files--images">
+                <div v-if="isPdf(file.media)">
+                  <i class="fa-solid fa-file-pdf"></i>
+                </div>
+                <div v-else>
+                  <img :src="file.media" class="document-viewer" />
+                </div>
+              </div>
+
+              <div class="other__files--buttons">
+                <button
+                  @click="downloadDocument(file.media)"
+                  class="other__files--buttons--download"
+                >
+                  تحميل الملف
+                </button>
+
+                <button
+                  v-if="!isPdf(file.media)"
+                  @click="closeImageModal = true"
+                  class="other__files--buttons--view"
+                >
+                  عرض الملف
+                </button>
+              </div>
+              <transition name="fade">
+                <ImageModal
+                  v-if="closeImageModal"
+                  :imageUrl="file.media"
+                  @close-img="closeImageModal = false"
+                ></ImageModal>
+              </transition>
+            </div>
+          </div>
+        </div>
+
         <div
           class="footer_wrapper"
           v-if="!item.is_my_agent && item.added_offer == false"
@@ -334,4 +378,91 @@
 
 <style lang="scss" scoped>
 @import '~/assets/css/pages/detailsPage.scss';
+
+.other__files {
+  margin-top: 3rem;
+  h3 {
+    font-weight: bold;
+  }
+  &--container {
+    display: flex;
+    gap: 5rem;
+    margin-top: 2rem;
+    margin-bottom: 5rem;
+  }
+
+  &--card {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    background-color: #fff;
+  }
+
+  &--images {
+    img {
+      width: 300px;
+      height: 150px;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.3);
+    }
+
+    i {
+      font-size: 200px;
+      color: #4576b6;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &--buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    gap: 1.2rem;
+
+    &--download {
+      background-color: #648dc4;
+      color: #fff;
+      border-radius: 25px;
+      border: none;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 10px 22px;
+      transition: all 0.25s;
+      &:hover {
+        background-color: #4576b6;
+      }
+    }
+
+    &--view {
+      border: 1px solid #ccc;
+      border-radius: 25px;
+      background-color: #fff;
+      color: #000;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 10px 22px;
+      transition: all 0.25s;
+      &:hover {
+        background-color: #648dc4;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>

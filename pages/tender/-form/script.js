@@ -3,6 +3,7 @@ export default {
   props: ['categories', 'item'],
   data() {
     return {
+      maxChars: 300,
       form: {
         title: null,
         desc: null,
@@ -142,7 +143,7 @@ export default {
 
       if (this.item == null) {
         await this.$axios
-          .post('/tenders', form_data)
+          .post('/tender', form_data)
           .then((res) => {
             this.TriggerNotify('success', 'تم اضافة المناقصة بنجاح !')
             this.$router.replace({ name: 'my-tenders' })
@@ -173,6 +174,11 @@ export default {
       }
 
       this.disabled = false
+    },
+  },
+  computed: {
+    isOverLimit() {
+      return this.form.desc ? this.form.desc.length > this.maxChars : false
     },
   },
 }

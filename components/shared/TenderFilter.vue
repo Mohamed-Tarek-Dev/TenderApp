@@ -178,4 +178,7 @@ export default {
     }
   }
 }
+.multiselect__content-wrapper {
+  top: 100% !important;
+}
 </style>

@@ -1,84 +1,86 @@
 <template>
-  <div v-if="item" class="share-menu">
-    <p>مشاركة المناقصة</p>
-    <div class="social-icons">
-      <ShareNetwork
-        network="facebook"
-        :url="dynamicUrl"
-        :title="item.title"
-        :description="item.desc"
-        hashtags="Tender"
-        :quote="item.title"
-        :media="item.tender_images[0].media"
-      >
-        <button class="social-icon share-icon-1">
-          <i class="fa-brands fa-facebook-f"></i>
-        </button>
-      </ShareNetwork>
+  <div class="backdrop" @click="emitCloseModal">
+    <div v-if="item" class="share-menu" @click.stop>
+      <p>مشاركة المناقصة</p>
+      <div class="social-icons">
+        <ShareNetwork
+          network="facebook"
+          :url="dynamicUrl"
+          :title="item.title"
+          :description="item.desc"
+          hashtags="Tender"
+          :quote="item.title"
+          :media="item.tender_images[0].media"
+        >
+          <button class="social-icon share-icon-1">
+            <i class="fa-brands fa-facebook-f"></i>
+          </button>
+        </ShareNetwork>
 
-      <ShareNetwork
-        network="Twitter"
-        :url="dynamicUrl"
-        :title="item.title"
-        :description="item.desc"
-        :hashtags="item.title"
-        :quote="item.title"
-        :media="item.tender_images[0].media"
-      >
-        <button class="social-icon share-icon-2">
-          <i class="fa-brands fa-twitter"></i>
-        </button>
-      </ShareNetwork>
+        <ShareNetwork
+          network="Twitter"
+          :url="dynamicUrl"
+          :title="item.title"
+          :description="item.desc"
+          :hashtags="item.title"
+          :quote="item.title"
+          :media="item.tender_images[0].media"
+        >
+          <button class="social-icon share-icon-2">
+            <i class="fa-brands fa-twitter"></i>
+          </button>
+        </ShareNetwork>
 
-      <ShareNetwork
-        network="WhatsApp"
-        :url="dynamicUrl"
-        :title="item.title"
-        :description="item.desc"
-        :hashtags="item.title"
-        :quote="item.title"
-        :media="item.tender_images[0].media"
-      >
-        <button class="social-icon share-icon-3">
-          <i class="fa-brands fa-whatsapp"></i>
-        </button>
-      </ShareNetwork>
+        <ShareNetwork
+          network="WhatsApp"
+          :url="dynamicUrl"
+          :title="item.title"
+          :description="item.desc"
+          :hashtags="item.title"
+          :quote="item.title"
+          :media="item.tender_images[0].media"
+        >
+          <button class="social-icon share-icon-3">
+            <i class="fa-brands fa-whatsapp"></i>
+          </button>
+        </ShareNetwork>
 
-      <ShareNetwork
-        network="Messenger"
-        :url="dynamicUrl"
-        :title="item.title"
-        :description="item.desc"
-        :hashtags="item.title"
-        :quote="item.title"
-        :media="item.tender_images[0].media"
-      >
-        <button class="social-icon share-icon-4">
-          <i class="fa-brands fa-facebook-messenger"></i>
-        </button>
-      </ShareNetwork>
+        <ShareNetwork
+          network="Messenger"
+          :url="dynamicUrl"
+          :title="item.title"
+          :description="item.desc"
+          :hashtags="item.title"
+          :quote="item.title"
+          :media="item.tender_images[0].media"
+        >
+          <button class="social-icon share-icon-4">
+            <i class="fa-brands fa-facebook-messenger"></i>
+          </button>
+        </ShareNetwork>
 
-      <ShareNetwork
-        network="LinkedIn"
-        :url="dynamicUrl"
-        :title="item.title"
-        :description="item.desc"
-        :hashtags="item.title"
-        :quote="item.title"
-        :media="item.tender_images[0].media"
-      >
-        <button class="social-icon share-icon-5">
-          <i class="fa-brands fa-linkedin-in"></i>
-        </button>
-      </ShareNetwork>
-    </div>
+        <ShareNetwork
+          network="LinkedIn"
+          :url="dynamicUrl"
+          :title="item.title"
+          :description="item.desc"
+          :hashtags="item.title"
+          :quote="item.title"
+          :media="item.tender_images[0].media"
+        >
+          <button class="social-icon share-icon-5">
+            <i class="fa-brands fa-linkedin-in"></i>
+          </button>
+        </ShareNetwork>
+      </div>
 
-    <div class="copy-section">
-      <span>مشاركة الرابط</span>
-      <div class="copy-input">
-        <input ref="urlInput" type="text" :value="dynamicUrl" readonly />
-        <button @click="copyUrlToClipboard">نسخ الرابط</button>
-        <p v-if="copied">تم نسخ الرابط</p>
+      <div class="copy-section">
+        <span>مشاركة الرابط</span>
+        <div class="copy-input">
+          <input ref="urlInput" type="text" :value="dynamicUrl" readonly />
+          <button @click="copyUrlToClipboard">نسخ الرابط</button>
+          <p v-if="copied">تم نسخ الرابط</p>
+        </div>
       </div>
     </div>
   </div>
@@ -110,11 +112,23 @@ export default {
         console.error('Failed to copy URL: ', err)
       }
     },
+    emitCloseModal() {
+      this.$emit('close-modal')
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
 .share-menu {
   background-color: #f9f9f9;
   padding: 20px;
@@ -123,32 +137,12 @@ export default {
   width: 500px;
   max-width: 500px;
   margin: auto;
-  position: absolute;
-  top: 30%;
-  left: 40px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 9;
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 10px solid #f9f9f9;
-  }
-  &::before {
-    top: -11px;
-    border-bottom: 11px solid rgba(0, 0, 0, 0.1);
-  }
-  &::after {
-    .share-menu::after {
-      top: -10px;
-      border-bottom: 10px solid #f9f9f9;
-    }
-  }
   p {
     color: #333;
     font-weight: 900;
@@ -188,7 +182,8 @@ export default {
         background-color: #0077b5;
       }
 
-      &:hover {
+      &:hover,
+      &:focus {
         transform: scale(1.1);
       }
     }
