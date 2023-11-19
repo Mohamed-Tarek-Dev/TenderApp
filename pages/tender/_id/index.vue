@@ -11,15 +11,17 @@
             <span>
               {{ $moment(item.created_at).startOf('day').fromNow() }}
             </span>
-            <a href="javascript:;" v-if="item.is_my_agent == true">
+            <nuxt-link
+              :to="{ name: 'tender-id-edit', params: { id: item.id } }"
+            >
               <img
                 src="~/assets/images/edit.svg"
                 alt="icon"
-                width="30"
-                height="30"
-                @click="$bvModal.show('apply_modal')"
+                width="40"
+                height="40"
+                v-if="item.is_my_agent"
               />
-            </a>
+            </nuxt-link>
           </h4>
           <div class="options_wrapper">
             <div class="item">

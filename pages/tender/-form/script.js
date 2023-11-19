@@ -1,9 +1,11 @@
+import SpecializationForm from '@/components/shared/SpecializationForm.vue'
 export default {
   name: 'FormCard',
+  components: { SpecializationForm },
   props: ['categories', 'item'],
   data() {
     return {
-      maxChars: 300,
+      maxChars: 500,
       form: {
         title: null,
         desc: null,
@@ -20,6 +22,7 @@ export default {
       tender_other_files: [],
       category_ids: [],
       disabled: false,
+      error: false,
     }
   },
   mounted() {
@@ -98,6 +101,12 @@ export default {
       }
     },
     async submitForm() {
+      if (this.isCategoryIdsEmpty) {
+        this.error = true
+        return
+      } else {
+        this.error = false
+      }
       await this.$refs.form.validate().then((success) => {
         if (success) {
           this.handleReq()
@@ -175,10 +184,35 @@ export default {
 
       this.disabled = false
     },
+    toggleSelection(option) {
+      // Determine if the option is already selected
+      const isSelected = this.category_ids.some(
+        (selectedOption) => selectedOption.id === option.id
+      )
+      // Toggle the selection
+      if (isSelected) {
+        // Remove the option from the selected options
+        this.category_ids = this.category_ids.filter(
+          (selectedOption) => selectedOption.id !== option.id
+        )
+      } else {
+        // Add the option to the selected options
+        this.category_ids = [...this.category_ids, option]
+      }
+    },
+    deselectOption(option) {
+      // Remove the option from the selected options
+      this.category_ids = this.category_ids.filter(
+        (selectedOption) => selectedOption.id !== option.id
+      )
+    },
   },
   computed: {
     isOverLimit() {
       return this.form.desc ? this.form.desc.length > this.maxChars : false
+    },
+    isCategoryIdsEmpty() {
+      return this.category_ids.length === 0
     },
   },
 }

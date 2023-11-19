@@ -94,7 +94,7 @@
                 </svg>
               </a>
               <a href="javascript:;" @click="toggleFav" v-if="is_loggedin">
-                <span v-if="item.is_favorite != true">
+                <span v-if="item.is_favorite != true && !item.is_my_agent">
                   <svg class="icon">
                     <use xlink:href="~/static/sprite.svg#favourite"></use>
                   </svg>
