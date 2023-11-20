@@ -12,6 +12,7 @@ export default {
   },
   data() {
     return {
+      activeTab: 'offers',
       closeImageModal: false,
       breadcrumb: [
         { name: 'tenders-list', title: 'المناقصات' },

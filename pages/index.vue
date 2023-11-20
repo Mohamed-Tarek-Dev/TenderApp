@@ -79,6 +79,7 @@ export default {
 //     }
 //     const data = await response.json()
 //     console.log(data)
+//     console.log(data.data[0].tender_specifications_file.media)
 //   } catch (error) {
 //     console.error('Error fetching data:', error)
 //   }

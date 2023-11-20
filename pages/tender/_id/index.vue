@@ -4,7 +4,27 @@
       <!-- start:: breadcrumb -->
       <Breadcrumb :links="breadcrumb"></Breadcrumb>
 
-      <div class="details_wrapper">
+      <h2 class="page-title">تفاصيل الصفقة</h2>
+
+      <div class="tabs__buttons">
+        <button
+          class="btn tabs__buttons--detailsBtn"
+          :class="{ active: activeTab == 'details' }"
+          @click="activeTab = 'details'"
+        >
+          تفاصيل الصفقة
+        </button>
+        <button
+          class="btn tabs__buttons--offersBtn"
+          :class="{ active: activeTab == 'offers' }"
+          @click="activeTab = 'offers'"
+          btn
+        >
+          العروض المستملة
+        </button>
+      </div>
+
+      <div v-if="activeTab == 'details'" class="details_wrapper">
         <div class="header_wrapper">
           <h4 class="title">
             {{ item.title }}
@@ -122,115 +142,98 @@
               </div>
               <!-- end::line -->
             </div>
-            <!-- end::col -->
-            <div class="col-lg-6">
-              <div
-                class="offers_list"
-                v-if="offers.length > 0 && item.is_my_agent == true"
-              >
-                <h4 class="main_title">عروض الصفقة</h4>
-                <div
-                  class="wrapper"
-                  v-for="(offer, idx) in offers"
-                  :key="idx + 100"
-                >
-                  <div class="wrapper_header">
-                    <img :src="offer.user.avatar" alt="avatar" />
-                    <p class="name">{{ offer.user.name }}</p>
-                  </div>
-                  <!-- end::wrapper_header -->
-
-                  <div class="wrapper_body">
-                    <p class="desc">{{ offer.desc }}</p>
-                    <div class="flex_wrapper images">
-                      <p>ملفات العرض :</p>
-                      <a
-                        :href="img.media"
-                        target="_blank"
-                        v-for="(img, idx) in offer.images"
-                        :key="idx + 1000"
-                      >
-                        <img :src="img.media" alt="image" />
-                      </a>
-                    </div>
-                  </div>
-                  <!-- end::wrapper_body -->
-                </div>
-              </div>
-              <!-- end::offers_list -->
-
-              <div class="offers_list" v-if="item.my_tender_offer != null">
-                <div class="wrapper owned">
-                  <div class="wrapper_header">
-                    <img :src="item.my_tender_offer.user.avatar" alt="avatar" />
-                    <p class="name">{{ item.my_tender_offer.user.name }}</p>
-                  </div>
-                  <!-- end::wrapper_header -->
-
-                  <div class="wrapper_body">
-                    <p class="desc">{{ item.my_tender_offer.desc }}</p>
-                    <div class="flex_wrapper images">
-                      <p>ملفات العرض :</p>
-                      <a
-                        :href="img.media"
-                        target="_blank"
-                        v-for="(img, idx) in item.my_tender_offer.images"
-                        :key="idx + 1000"
-                      >
-                        <img :src="img.media" alt="image" />
-                      </a>
-                    </div>
-                  </div>
-                  <!-- end::wrapper_body -->
-                </div>
-              </div>
-            </div>
-            <!-- end::col -->
           </div>
           <!-- end::row -->
         </div>
         <!-- end::body_wrapper -->
 
-        <div class="other__files">
-          <h3>ملفات اخرى</h3>
-          <div class="other__files--container">
-            <div
-              v-for="(file, idx) in item.tender_images"
-              :key="file.id"
-              class="other__files--card"
-            >
-              <div class="other__files--images">
-                <div v-if="isPdf(file.media)">
-                  <i class="fa-solid fa-file-pdf"></i>
+        <div class="other-wrapper">
+          <div class="other__files">
+            <h3>كراسة الشروط</h3>
+            <div class="other__files--container">
+              <div class="other__files--card">
+                <div class="other__files--images">
+                  <div v-if="isPdf(item.tender_specifications_file.media)">
+                    <i class="fa-solid fa-file-pdf"></i>
+                  </div>
+                  <div v-else>
+                    <img
+                      :src="item.tender_specifications_file.media"
+                      class="document-viewer"
+                    />
+                  </div>
                 </div>
-                <div v-else>
-                  <img :src="file.media" class="document-viewer" />
+
+                <div class="other__files--buttons">
+                  <button
+                    @click="
+                      downloadDocument(item.tender_specifications_file.media)
+                    "
+                    class="other__files--buttons--download"
+                  >
+                    تحميل الملف
+                  </button>
+
+                  <button
+                    v-if="!isPdf(item.tender_specifications_file.media)"
+                    @click="closeImageModal = true"
+                    class="other__files--buttons--view"
+                  >
+                    عرض الملف
+                  </button>
                 </div>
+                <transition name="fade">
+                  <ImageModal
+                    v-if="closeImageModal"
+                    :imageUrl="item.tender_specifications_file.media"
+                    @close-img="closeImageModal = false"
+                  ></ImageModal>
+                </transition>
               </div>
+            </div>
+          </div>
 
-              <div class="other__files--buttons">
-                <button
-                  @click="downloadDocument(file.media)"
-                  class="other__files--buttons--download"
-                >
-                  تحميل الملف
-                </button>
+          <div class="other__files">
+            <h3>ملفات اخرى</h3>
+            <div class="other__files--container">
+              <div
+                v-for="(file, idx) in item.tender_images"
+                :key="file.id"
+                class="other__files--card"
+              >
+                <div class="other__files--images">
+                  <div v-if="isPdf(file.media)">
+                    <i class="fa-solid fa-file-pdf"></i>
+                  </div>
+                  <div v-else>
+                    <img :src="file.media" class="document-viewer" />
+                  </div>
+                </div>
 
-                <button
-                  v-if="!isPdf(file.media)"
-                  @click="closeImageModal = true"
-                  class="other__files--buttons--view"
-                >
-                  عرض الملف
-                </button>
+                <div class="other__files--buttons">
+                  <button
+                    @click="downloadDocument(file.media)"
+                    class="other__files--buttons--download"
+                  >
+                    تحميل الملف
+                  </button>
+
+                  <button
+                    v-if="!isPdf(file.media)"
+                    @click="closeImageModal = true"
+                    class="other__files--buttons--view"
+                  >
+                    عرض الملف
+                  </button>
+                </div>
+                <transition name="fade">
+                  <ImageModal
+                    v-if="closeImageModal"
+                    :imageUrl="file.media"
+                    @close-img="closeImageModal = false"
+                  ></ImageModal>
+                </transition>
               </div>
-              <transition name="fade">
-                <ImageModal
-                  v-if="closeImageModal"
-                  :imageUrl="file.media"
-                  @close-img="closeImageModal = false"
-                ></ImageModal>
-              </transition>
             </div>
           </div>
         </div>
@@ -250,6 +253,136 @@
         <!-- end::footer_wrapper -->
       </div>
       <!-- end::details_wrapper -->
+
+      <div class="container">
+        <div v-if="activeTab == 'offers' && item.is_my_agent">
+          <div class="offers__page" v-for="offer in offers" :key="offer.id">
+            <div class="offers__page--details">
+              <h3 class="offers__page--name">الاسم: {{ offer.user.name }}</h3>
+              <div class="offers__page--phone">
+                رقم الهاتف:
+                <span>{{ offer.user.phone }}</span>
+                <span>{{ offer.user.phone_code }}+</span>
+              </div>
+              <p class="offers__page--desc">ملحوظة: {{ offer.desc }}</p>
+            </div>
+
+            <div class="offers__page--files">
+              <div class="other-wrapper">
+                <div class="other__files">
+                  <h3>ملف عرض السعر</h3>
+                  <div class="other__files--container">
+                    <div
+                      class="other__files--card"
+                      v-for="(img, idx) in offer.images"
+                    >
+                      <div class="other__files--images">
+                        <div v-if="isPdf(img.media)">
+                          <i class="fa-solid fa-file-pdf"></i>
+                        </div>
+                        <div v-else>
+                          <img :src="img.media" class="document-viewer" />
+                        </div>
+                      </div>
+
+                      <div class="other__files--buttons">
+                        <button
+                          @click="downloadDocument(img.media)"
+                          class="other__files--buttons--download"
+                        >
+                          تحميل الملف
+                        </button>
+
+                        <button
+                          v-if="!isPdf(img.media)"
+                          @click="closeImageModal = true"
+                          class="other__files--buttons--view"
+                        >
+                          عرض الملف
+                        </button>
+                      </div>
+                      <transition name="fade">
+                        <ImageModal
+                          v-if="closeImageModal"
+                          :imageUrl="img.media"
+                          @close-img="closeImageModal = false"
+                        ></ImageModal>
+                      </transition>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="other__files">
+                  <h3>ملف سابقة الاعمال</h3>
+                  <div class="other__files--container">
+                    <div
+                      class="other__files--card"
+                      v-for="(img, idx) in offer.files"
+                    >
+                      <div class="other__files--images">
+                        <div v-if="isPdf(img.media)">
+                          <i class="fa-solid fa-file-pdf"></i>
+                        </div>
+                        <div v-else>
+                          <img :src="img.media" class="document-viewer" />
+                        </div>
+                      </div>
+
+                      <div class="other__files--buttons">
+                        <button
+                          @click="downloadDocument(img.media)"
+                          class="other__files--buttons--download"
+                        >
+                          تحميل الملف
+                        </button>
+
+                        <button
+                          v-if="!isPdf(img.media)"
+                          @click="closeImageModal = true"
+                          class="other__files--buttons--view"
+                        >
+                          عرض الملف
+                        </button>
+                      </div>
+                      <transition name="fade">
+                        <ImageModal
+                          v-if="closeImageModal"
+                          :imageUrl="img.media"
+                          @close-img="closeImageModal = false"
+                        ></ImageModal>
+                      </transition>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="offers_list" v-if="item.my_tender_offer != null">
+          <div class="wrapper owned">
+            <div class="wrapper_header">
+              <img :src="item.my_tender_offer.user.avatar" alt="avatar" />
+              <p class="name">{{ item.my_tender_offer.user.name }}</p>
+            </div>
+
+            <div class="wrapper_body">
+              <p class="desc">{{ item.my_tender_offer.desc }}</p>
+              <div class="flex_wrapper images">
+                <p>ملفات العرض :</p>
+                <a
+                  :href="img.media"
+                  target="_blank"
+                  v-for="(img, idx) in item.my_tender_offer.images"
+                  :key="idx + 1000"
+                >
+                  <img :src="img.media" alt="image" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        </div>
+      </div>
     </div>
 
     <!-- start:: apply_modal -->
@@ -381,6 +514,10 @@
 <style lang="scss" scoped>
 @import '~/assets/css/pages/detailsPage.scss';
 
+.other-wrapper {
+  display: flex;
+  gap: 5rem;
+}
 .other__files {
   margin-top: 3rem;
   h3 {
@@ -388,7 +525,7 @@
   }
   &--container {
     display: flex;
-    gap: 5rem;
+    gap: 2rem;
     margin-top: 2rem;
     margin-bottom: 5rem;
   }
@@ -459,6 +596,7 @@
   }
 }
 
+/*--------------------------  New Styles--------------------------*/
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
@@ -466,5 +604,88 @@
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+
+.page-title {
+  font-weight: bold;
+}
+
+.tabs__buttons {
+  margin: 2rem 0;
+
+  &--detailsBtn,
+  &--offersBtn {
+    &:hover {
+      background-color: #c2d6f0;
+    }
+    &.active {
+      background-color: #4576b6;
+      color: #fff;
+      outline: none;
+
+      &:hover {
+        background-color: #648dc4;
+      }
+    }
+  }
+
+  &--detailsBtn {
+    margin-left: 3rem;
+  }
+  &--offersBtn {
+  }
+}
+
+.offers__page {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5rem;
+  border: 2px solid #4576b6;
+  border-radius: 10px;
+  padding: 1.5rem 1rem;
+
+  &--details {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &--name {
+  }
+
+  &--phone {
+    margin: 0.5rem 0 1rem 0;
+  }
+
+  &--desc {
+    margin-top: 2rem;
+  }
+  .other__files {
+    margin-top: 0;
+    h3 {
+      font-size: 1.3rem;
+    }
+    &--container {
+      margin-bottom: 0;
+    }
+
+    &--images {
+      display: flex;
+      justify-content: center;
+
+      img {
+        width: 250px;
+        height: 125px;
+      }
+    }
+
+    &--buttons {
+      &--download,
+      &--view {
+        padding: 8px 10px;
+        font-size: 14px;
+      }
+    }
+  }
 }
 </style>

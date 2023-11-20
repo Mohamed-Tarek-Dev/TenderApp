@@ -84,9 +84,9 @@
                                 "
                               >
                                 {{
-                                  tender_specifications_file.media
-                                    .split('/')
-                                    .pop()
+                                  getShortenedFileName(
+                                    tender_specifications_file.media
+                                  )
                                 }}
                               </a>
                               <span
@@ -139,7 +139,7 @@
                                 v-b-tooltip.hover
                                 :title="file.media.split('/').pop()"
                               >
-                                {{ file.media.split('/').pop() }}
+                                {{ getShortenedFileName(file.media) }}
                               </a>
                               <span
                                 class="close"
@@ -187,7 +187,7 @@
                                 v-b-tooltip.hover
                                 :title="file.media.split('/').pop()"
                               >
-                                {{ file.media.split('/').pop() }}
+                                {{ getShortenedFileName(file.media) }}
                               </a>
                               <span
                                 class="close"
@@ -369,6 +369,12 @@
   fieldset {
     border: 2px solid #e6e6e6;
     border-radius: 25px;
+  }
+
+  .preview_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .validation-error {

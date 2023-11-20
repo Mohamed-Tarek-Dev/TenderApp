@@ -100,6 +100,10 @@ export default {
         }
       }
     },
+    getShortenedFileName(mediaPath) {
+      const fileName = mediaPath.split('/').pop()
+      return fileName.length > 3 ? `${fileName.substring(0, 3)}...` : fileName
+    },
     async submitForm() {
       if (this.isCategoryIdsEmpty) {
         this.error = true

@@ -37,7 +37,9 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
+  height: 600px;
+  max-height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,6 +50,7 @@ export default {
     width: 100%;
     height: 100%;
     max-width: 500px;
+    object-fit: cover;
   }
 }
 .close-image {

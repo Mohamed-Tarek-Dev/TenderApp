@@ -11,7 +11,11 @@
       <div class="row justify-content-between">
         <div class="col-lg-2">
           <div class="img_wrapper" @click="handleRoute">
-            <img :src="item.tender_images[0].media" alt="tender_img" />
+            <img
+              v-if="item.tender_images[0] && item.tender_images[0].media"
+              :src="item.tender_images[0].media"
+              alt="tender_img"
+            />
           </div>
         </div>
         <!-- end::col -->
